@@ -53,3 +53,25 @@ fi
 EOF
 fi
 ln -vs "$THIS_DIR"/.config/git "$DEST_GIT"
+
+# ~/.bash*
+for FILE_PATH in "$THIS_DIR"/.config/bash/*
+do
+    FILENAME="$(basename "$FILE_PATH")"
+    DEST="$HOME"/."$FILENAME"
+    if [[ -f "$DEST" ]]
+    then
+        BACKUP_DEST="$BACKUP_DIR"/."$FILENAME"
+        cp "$DEST" "$BACKUP_DEST"
+        echo "cat '$BACKUP_DEST' > '$DEST'" >> "$RESTORE_BASH"
+    else
+        touch "$DEST"
+    fi
+    sed --in-place --file=- "$DEST" << EOF
+1i \
+source "${FILE_PATH}/prepend"
+\$a \
+source "${FILE_PATH}/append"
+EOF
+    echo "Prepend and appended 'source ...' to $DEST"
+done

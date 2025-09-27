@@ -1,0 +1,5 @@
+# Things that are small enough and specific to interactive terminal use
+# Otherwise, consider making script files for it
+alias ll='ls -avlh --si'
+alias chme='sudo chown $(id -u):$(id -g)'
+alias re='readlink -e'

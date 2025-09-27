@@ -1,0 +1,8 @@
+#!/bin/bash
+find /usr/share/zoneinfo \
+    ! -type d \
+    ! -path '*/right/*' \
+    ! -path '*/posix/*' \
+    -exec file -Nz {} + \
+| grep -zoP '(?<=/usr/share/zoneinfo/)[^:]+(?=\: timezone)' \
+| xargs --null  zdump

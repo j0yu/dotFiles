@@ -1,0 +1,51 @@
+#!/bin/bash
+set -eu -o pipefail
+
+FLATPAK_BIN_DIR="${FLATPAK_BIN_DIR:-$HOME/.local/share/flatpak/bin}"
+mkdir -p "$FLATPAK_BIN_DIR"
+
+create() {
+    # Create a executable script using $1 as name and the rest as "flatpak run ..."
+    EXE_PATH="${FLATPAK_BIN_DIR}/${1}"
+    shift
+    echo -en '#!/bin/bash\nexec flatpak run' "$@" '"$@"' > "$EXE_PATH"
+    chmod a+x "$EXE_PATH"
+}
+
+generate() {
+    echo "Creating|For"
+    # List all app IDs only (--columns=application), removing heading using cut -f1
+    flatpak list --app --columns=application | cut -f1 | while read APP_ID
+    do
+	case "$APP_ID" in
+            *brave*) EXE_NAME="brave";;
+            *spotify*) EXE_NAME="spotify";;
+            *playmusic*) EXE_NAME="playmusic";;
+            *obs*) EXE_NAME="obs";;
+            *)
+                EXE_NAME=${APP_ID%%/*}   # Strip trailing elements after and including /
+                EXE_NAME=${EXE_NAME##*.} # Strip all upto and including last .
+                EXE_NAME=${EXE_NAME,,}   # Convert all to lowercase
+                ;;
+        esac
+
+        if create "${EXE_NAME}" "${APP_ID}"
+        then
+            echo "${EXE_NAME}|${APP_ID}"
+        fi
+    done
+}
+
+while read FILE_PATH
+do
+    tail -1 "$FILE_PATH" | grep -qP '(?<=^exec )flatpak run.*\$@' \
+        && rm -vf "$FILE_PATH" \
+        || :
+done < <(find "$FLATPAK_BIN_DIR" -type f -executable)
+
+echo "$(basename ${BASH_SOURCE[0]}):"
+generate | column -t -s '|'
+if ! [[ "$PATH" =~ "$FLATPAK_BIN_DIR" ]]
+then
+    echo "Be sure to include in your \$PATH: $FLATPAK_BIN_DIR"
+fi

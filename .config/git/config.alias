@@ -1,0 +1,24 @@
+[alias]
+    # Simple aliases
+	amend-files = commit --amend --no-edit
+	ap = add -p
+    a = add .
+    bdf = branch -df
+    bm = branch -m
+    c = commit -m
+    cb = checkout -b
+    ch = checkout
+    cp = cherry-pick
+    d = diff --word-diff=color
+    ds = d --stat
+    dst = d --staged
+    dsts = d --staged --stat
+    fuckit = reset --hard
+    pu = push -u
+    puff = pull --ff --no-edit
+    reco = rebase --continue
+    ru = remote update
+    rv = remote -v
+    s = status
+    ss = status --short --branch
+    unstage = reset HEAD

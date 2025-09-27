@@ -1,0 +1,14 @@
+#
+# Any color configurations
+#
+[color "decorate"]
+    branch = green reverse
+    remoteBranch = red bold dim
+    tag = yellow reverse
+    HEAD = cyan bold ul blink
+
+[color "branch"]
+    upstream = yellow
+
+[color]
+    ui = always

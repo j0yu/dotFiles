@@ -1,6 +1,21 @@
 # dotFiles
 User tools, configurations and setting
 
+## tl;dr
+
+**Self-imposed repository rules**
+- Must be able to install without GUI
+- Prioritise composition
+- As much configs should live in `~/.config` (i.e. the `$XDG_CONFIG_HOME`)
+- No symlinks, install destination should symlink to us
+
+**Branching**
+- `minimal`:  For bare-bones/server installs i.e. you just `git clone` this repo from a tty and haven't even got any GUI going.
+- `main-*`:  My daily drivers
+- Everything else: Individual programs and setups (Desktop environment/Window managers)
+
+----
+
 ## Self-imposed repository rules
 
 - Must be able to install without GUI
@@ -8,10 +23,16 @@ User tools, configurations and setting
   - But freely delete symlinks
 - Prioritise composition
   - Utilise _include_, _source_, etc to split up into meaningful categories
-  - Minimal editing of destination files
+  - Minimal editing of existing destination files
     - e.g. `~/.bashrc` should only include 1 simple "source ..." to us where possible
 - As much configs should live in `~/.config` (i.e. the `$XDG_CONFIG_HOME`)
 - No symlinks, install destination should symlink to us
+
+## Repository Structure
+
+All files/folders are intended to mirror their relative path to the user's home directory.
+
+Therefore, when listing files, be sure to include option to show `.` prefixed files/folders (i.e. hidden paths) e.g. `ls -lah`
 
 ## Branching
 

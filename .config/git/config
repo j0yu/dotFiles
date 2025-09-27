@@ -1,0 +1,25 @@
+#
+# This file is prioritised by git above ~/.gitconfig
+#
+# Place any user sensitive information e.g. user.name and user.email,
+# into the git-ignored "config.user" in this folder
+#
+[include]
+    path = config.user
+    path = config.color
+    path = config.alias
+
+[init]
+	defaultBranch = main
+
+# "git push" by default sets up and tracks origin/same-branch-name
+# i.e. no need to --set-upstream
+[push]
+    default = current
+    autoSetupRemote = true
+
+[grep]
+    patternType = perl
+
+[fetch]
+    prune = true

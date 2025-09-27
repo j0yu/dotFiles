@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Setup important environment variables:
+# - DOTFILES: Absolute location to this repository's root
+# - PATH: To include all immediate sub-folders of "scripts"
+#
+
+# Warning: Sensitive to how deep/where this file is placed in
+THIS_FILE="$(readlink -e "${BASH_SOURCE[0]}")"
+export DOTFILES="$(readlink -m "$THIS_FILE"/../../../../..)"
+unset THIS_FILE
+
+# Export PATH so all scripts/*/ folder are appended as well as
+# flatpack/bin (if previuosly exists from generate-flatpak-bin)
+PATH="$("$DOTFILES"/scripts/env/path.bash)"
+
+HOME_FLATPAK_BIN="$HOME/.local/share/flatpak/bin"
+if [[ "$PATH" =~ "$HOME_FLATPAK_BIN" && -d "$HOME_FLATPAK_BIN" ]]
+then PATH="$PATH":"$HOME_FLATPAK_BIN"
+fi
+
+export PATH
+unset HOME_FLATPAK_BIN

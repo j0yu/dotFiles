@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# source in numerical order, the files in the ".d" subfolder
+#
+THIS_FILE="$(readlink -e "${BASH_SOURCE[0]}")"
+for FILE_PATH in $(find "$THIS_FILE".d -maxdepth 1 -type f | sort -n)
+do source "$FILE_PATH"
+done
+unset FILE_PATH THIS_FILE

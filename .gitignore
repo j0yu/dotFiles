@@ -1,2 +1,5 @@
+# Track "env" folder in scripts
+!/scripts/env/
+
 # User sensitive configurations
 /.config/git/config.user

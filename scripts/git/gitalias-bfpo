@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# branch-force-push-origin
+#
+# Force 1 branch to be at a current/given commit,
+# first locally then on remote
+#
+set -eu -o pipefail
+if [[ $# == 0 ]]
+then
+    echo '
+usage: git bfpo <BRANCH> [<COMMIT> [<REMOTE_NAME>]]
+
+Examples:
+
+    git bfpo 123-feature
+
+Would FORCE local 123-feature to be at current commit, then
+force push it to origin
+
+    git bd 123-feature 123abc
+
+Would FORCE local 123-feature to be at commit 123abc, then
+force push it to origin
+
+    git bd 123-feature 123abc work
+
+Would FORCE local 123-feature to be at commit 123abc, then
+force push it to "work"
+' > &2
+    exit 1
+fi
+git branch -f "$1" "${2:-}"
+git pu -f "${3:-origin}" "$1"

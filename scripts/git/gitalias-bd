@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Force delete 1 branch locally first, then on remote
+#
+set -eu -o pipefail
+if [[ $# == 0 ]]
+then
+    echo '
+usage: git bd <BRANCH> [<REMOTE_NAME>]
+
+Examples:
+
+    git bd 123-feature
+
+Would FORCE delete local 123-feature and delete it off origin
+
+    git bd 123-feature work
+
+Would FORCE delete local 123-feature and delete it off "work"
+' > &2
+    exit 1
+fi
+
+git branch -d -f "$1"
+git push "${2:-origin}" --delete "$1"

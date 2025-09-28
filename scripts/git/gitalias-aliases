@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Print all aliases in a table
+# Optional table formatting is pull from commandline arguments
+#
+# Note: uses the ` character as separator
+#
+set -eu -o pipefail
+
+ARGS=(--table "$@")
+if [[ $# == 0 ]]
+then ARGS+=(
+    --table-column name=Alias
+    --table-column name=Command,wrap
+)
+fi
+
+git config --get-regexp alias \
+| sed '
+s/^alias.\([^ ]*\) /\1`/
+s/&&  */\&\& /g
+' \
+| column --separator='`' "${ARGS[@]}"

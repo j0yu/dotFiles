@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# branch-all-verbose
+# Useful to see all branches and which remote they track
+#
+set -eu -o pipefail
+git remote update
+git branch --all -vvv
+git config --local --get-regexp 'branch\..+\.(merge|remote)'

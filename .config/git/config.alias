@@ -3,9 +3,12 @@
 	amend-files = commit --amend --no-edit
 	ap = add -p
     a = add .
+    ba = branch -a
     bdf = branch -df
     bm = branch -m
     c = commit -m
+    ca = "! : git commit ; git a && git c"
+    caa = "! : git commit ; git aa && git c"
     cb = checkout -b
     ch = checkout
     cp = cherry-pick
@@ -22,3 +25,35 @@
     s = status
     ss = status --short --branch
     unstage = reset HEAD
+
+    # Graph log output
+    graphd = "! : git log ; git graph --author-date-order"
+    gg = "! : git log ; git graph --full-history --all"
+    gs = "! : git log ; git g --stat"
+    gp = "! : git log ; git g --patch"
+    gd = "! : git log ; git g --author-date-order"
+    rug = "! : git log ; git ru && git g"
+
+    # Mass pushing and rebasing
+    # rebo = "! : git rebase ; gitalias-rebo"
+    rp = "!git remote | xargs -l git push"
+    rpa = "!git remote | xargs -l git push --all"
+
+    # Attributes and settings
+    branch-name = rev-parse --abbrev-ref HEAD
+    set-default = config --local init.defaultBranch
+    repo-root = rev-parse --show-toplevel
+    # More complicated ones are placed into shell scripts
+    # To enable auto-complete, prefix with "! : git <CMD>;" where <CMD>
+    # equates to the git command to pull auto-completion from
+    aa = "! : git add; gitalias-aa"
+    alias = "! : git config; gitalias-alias"
+    aliases = "!gitalias-aliases"
+    bav = "!gitalias-bav"
+    bd = "! : git branch; gitalias-bd"
+    bfpo = "! : git branch ; gitalias-bfpo"
+    chm = "! : git push ; gitalias-chm"
+	g = "! : git log ; gitalias-g"
+	graph = "! : git log ; gitalias-graph"
+    oooops = "!gitalias-oooops"
+    rdb = "! : git push ; gitalias-rdb"

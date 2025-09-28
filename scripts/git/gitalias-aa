@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Add everything under the repository root
+#
+set -eu -o pipefail
+exec git add "$(git rev-parse --show-toplevel)" "$@"

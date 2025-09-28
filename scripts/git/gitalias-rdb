@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Setup simple aliases
+#
+set -eu -o pipefail
+
+if [[ $# == 0 ]]
+then
+    echo '
+usage: git rdb <BRANCH> [<REMOTE_NAME>]
+
+Examples:
+
+    git rdb 123-feature
+
+Would delete remote branch 123-feature off origin
+
+    git rdb 123-feature work
+
+Would delete remote branch 123-feature off "work"
+' > &2
+    exit 1
+fi
+exec git push "${2:-origin}" --delete "$1"

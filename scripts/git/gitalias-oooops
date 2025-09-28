@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Revert current commit while printing the message used
+# Note: git alias.* that starts with ! will by default run
+# at the root of the repository
+#
+set -eu -o pipefail
+
+git show --format='%B' --no-patch \
+| tee .git/COMMIT_EDITMSG
+git reset HEAD^1

@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Quick graph that fills the current Terminal window
+#
+set -eu -o pipefail
+
+# How much extra space to leave, either for
+# interactive prompt or just general comfort
+BUFFER=5
+LINES_ARG=-"$(( $(tput lines) - $BUFFER ))"
+
+gitalias-graph --full-history --all "$LINES_ARG" "$@" \
+| head $LINES_ARG
+echo  # So our prompt ends up on a new line afterwards

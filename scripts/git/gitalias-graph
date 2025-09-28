@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Pretty color graph output
+#
+set -eu -o pipefail
+WIDTH="${COLUMNS:-$(tput cols)}"
+MAIN=$(( WIDTH / 2 ))
+TAGS=$(( WIDTH / 10 ))
+DATE=$(( WIDTH / 10 ))
+FORMAT="\
+%C(auto)%h \
+%<($MAIN,trunc)%s \
+%>>($TAGS,trunc)%d \
+%C(green)%>>($DATE,trunc)%an, %<($DATE,trunc)%ar \
+"
+exec git log --graph --color --pretty=format:"$FORMAT" "$@"

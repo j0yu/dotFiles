@@ -1,3 +1,6 @@
+# vim: History files
+/.config/vim/.*hist
+
 # Track "env" folder in scripts
 !/scripts/env/
 

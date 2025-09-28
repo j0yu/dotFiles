@@ -1,0 +1,113 @@
+" Show trailing whitespace
+" MUST be inserted BEFORE the colorscheme command
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Colour scheme
+syntax on
+filetype plugin indent on
+set cursorline
+set complete=.,w,b,u,i,kspell
+
+" Markdown
+au BufNewFile,BufRead *.md
+\ set tabstop=2       |
+\ set softtabstop=2   |
+\ set shiftwidth=2    |
+\ set textwidth=79    |
+\ set expandtab       |
+\ set autoindent      |
+\ set fileformat=unix |
+\ set colorcolumn=80  |
+\ set spell  |
+\ highlight ColourColumn ctermbg=233
+
+" Python
+au BufNewFile,BufRead *.py
+\ set tabstop=4       |
+\ set softtabstop=4   |
+\ set shiftwidth=4    |
+\ set textwidth=88    |
+\ set expandtab       |
+\ set autoindent      |
+\ set fileformat=unix |
+\ set colorcolumn=89  |
+\ set foldmethod=indent  |
+\ highlight ColourColumn ctermbg=233
+
+" Line numbering
+set relativenumber
+set number
+
+" Set more usual copy/paste
+" set pastetoggle=<F2>
+set clipboard=unnamedplus
+
+" Keep selection after indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" Make search case insensitive
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Set history and undo
+set history=700
+set undolevels=700
+
+" Disable backup and swap files, less events for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+"""""""""""""""""""""""""""""""""""""""""""
+" Configs from
+" https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
+"
+""""""""""""""""""""""""""""""""""""""""""
+" enter the current millenium
+set nocompatible
+
+" Match parenthesis
+highlight MatchParen term=NONE
+
+" enable syntax and plugins (for netrw)
+filetype off
+filetype plugin on
+syntax enable
+
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
+
+" Display all matching files when we tab complete
+set wildmenu
+
+" NOW WE CAN:
+" - Hit tab to :find by partial match
+" - Use * to make it fuzzy
+
+" HIGHLIGHTS:
+" - ^x^n for JUST this file
+" - ^x^f for filenames (works with our path trick!)
+" - ^x^] for tags only
+" - ^n for anything specified by the 'complete' option
+
+" FILE BROWSING:
+" Tweaks for browsing
+let g:netrw_preview=1       " Vertical splitting
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_liststyle=3     " tree view
+augroup ProjectDrawer
+    autocmd!
+    autocmd VimEnter * :Vexplore | wincmd p
+augroup END
+
+" NOW WE CAN:
+" - :edit a folder to open a file browser
+" - <CR>/v/t to open in an h-split/v-split/tab
+" - check |netrw-browse-maps| for more mappings
